@@ -1,0 +1,347 @@
+\documentclass{report}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{float}
+
+\title{CS 1800 Notes}
+\author{Zach Harel}
+
+\begin{document}
+
+\maketitle
+
+\chapter{Logic}
+
+\section{Propositional Logic}
+
+A \textbf{proposition} is a statement that is either true or false.
+
+\subsection{Basic Logical Operators}
+
+Everything in propositional logic can be created using only NOT, AND, and OR.
+
+\subsubsection{$\neg$: Negation (NOT)}
+The negation of $p$ ($\neg p$) is true when $p$ is false, and false when $p$ is true.
+
+\subsubsection{$\land$: Conjunction (AND)}
+$p \land q$ is true only when both $p$ and $q$ are true.
+
+\subsubsection{$\lor$: Disjunction (OR)}
+$p \lor q$ is true when at least one of $p$ or $q$ is true.
+
+\subsection{More Logical Operators}
+
+These operators can 
+
+\subsubsection{$\implies$: Implication (IF-THEN)}
+$p \implies q$ is false only when $p$ is true and $q$ is false.
+
+\begin{itemize}
+    \item $p$ is the \textbf{hypothesis} (or antecedent)
+    \item $q$ is the \textbf{conclusion} (or consequent)
+\end{itemize}
+
+\begin{equation}
+    p \implies q \equiv \lnot p \lor q
+\end{equation}
+
+\subsubsection{$\oplus$: Exclusive Disjunction (XOR)}
+
+$p \oplus q$ is true when either $p$ is true or $q$ is true, but not both.
+
+\begin{equation}
+    p \oplus q \equiv (p \lor q) \land \lnot(p \land q)
+\end{equation}
+
+\subsection{Logical Equivalence}
+
+Two propositions are \textbf{logically equivalent} ($\equiv$) if they have the same truth value for all possible truth assignments.
+
+\subsubsection{De Morgan's Laws}
+\begin{align}
+    \neg(p \land q) &\equiv \neg p \lor \neg q \\
+    \neg(p \lor q) &\equiv \neg p \land \neg q
+\end{align}
+
+\subsubsection{Double Negation}
+\begin{equation}
+    \neg(\neg p) \equiv p
+\end{equation}
+
+\subsubsection{Contrapositive}
+\begin{equation}
+    (p \implies q) \equiv (\neg q \implies \neg p)
+\end{equation}
+
+\section{First-Order Logic}
+
+First-order logic extends propositional logic with \textbf{predicates} and \textbf{quantifiers}.
+
+\subsection{Predicates}
+
+A \textbf{predicate} is a statement containing variables that becomes a proposition when variables are assigned values.
+
+Example: $P(x)$: ``$x$ is even'' becomes a proposition when $x$ is specified.
+
+\subsection{Quantifiers}
+
+\subsubsection{$\forall$: Universal Quantifier (FOR ALL)}
+$\forall x \, P(x)$ means $P(x)$ is true for every value of $x$ in the domain.
+
+\subsubsection{$\exists$: Existential Quantifier (THERE EXISTS)}
+$\exists x \, P(x)$ means there is at least one value of $x$ in the domain for which $P(x)$ is true.
+
+\subsection{Negating Quantifiers}
+
+\begin{align}
+    \neg(\forall x \, P(x)) &\equiv \exists x \, \neg P(x) \\
+    \neg(\exists x \, P(x)) &\equiv \forall x \, \neg P(x)
+\end{align}
+
+\subsection{Multiple Quantifiers}
+
+Order matters! $\forall x \, \exists y \, P(x, y)$ is different from $\exists y \, \forall x \, P(x, y)$.
+
+Example: Let $P(x, y)$: ``$x < y$''
+\begin{itemize}
+    \item $\forall x \, \exists y \, P(x, y)$: For every number, there exists a larger number (TRUE)
+    \item $\exists y \, \forall x \, P(x, y)$: There exists a number larger than all numbers (FALSE)
+\end{itemize}
+
+\chapter{Sets}
+
+\section{What is a Set?}
+
+A set is simply an unordered collection of unique items.
+
+\section{Default Sets}
+
+\subsection{$\mathbb{U}$: The Universal Set}
+Contains every element in our domain (must be defined for each problem/set of problems).
+
+\subsection{$\varnothing$: The Empty Set} 
+\{\}; Has no elements.
+
+\section{Set Operations}
+
+\subsection{=: Equality}
+
+Two sets are equal if all of their elements are the same.
+
+\begin{equation}
+    (A = B) \iff (\forall x (x \in A \iff x \in B))
+\end{equation}
+
+\subsection{$\vert S\vert$: Cardinality}
+
+The cardinality of set $S$ ($\vert S \vert$) is the number of elements in set $S$.
+
+\begin{equation}
+    \vert \{1, 2, 3\} \vert = 3
+\end{equation}
+
+\subsection{$\overline{S}$: Complement}
+
+The complement of a set $S$ ($\overline{S}$) is the set of every element (of the universal set) that is not in $S$.
+
+For example, if $\mathbb{U} = \{1, 2, 3, 4, 5\}$ and $S = \{1, 4\}$, $\overline{S} = \{2, 3, 5\}$.
+
+\begin{equation}
+    \vert \overline{S} \vert = \vert \mathbb{U} \vert - \vert S \vert
+\end{equation}
+
+\subsection{$\cap$: Intersection}
+
+The intersection of sets $A$ and $B$ ($A \cap B$) contains every element in both sets.
+
+\begin{equation}
+    A \cap B = \{x \vert x \in A \land x \in B\} 
+\end{equation}
+
+\subsection{$\cup$: Union}
+
+The union of sets $A$ and $B$ ($A \cup B$) contains every element in either set (with no repeats).
+
+\begin{align}
+    A \cup B &= \{x \vert x \in A \lor x \in B\} \\
+    \vert A \cup B \vert &= \vert A \vert + \vert B \vert - \vert A \cap B \vert
+\end{align}
+
+\subsection{$\subseteq$: Subset}
+
+If $A$ is a subset of $B$ ($A \subseteq B$), all elements of $A$ are also elements of $B$.
+
+\begin{equation}
+    A \subseteq B \iff \forall x (x \in A) \implies (x \in B)
+\end{equation}
+
+Any set is a subset of itself.
+
+\begin{equation}
+    A \subseteq A
+\end{equation}
+
+The subset definition can also be used to define set equality.
+
+\begin{equation}
+    A = B \iff (A \subseteq B) \land (B \subseteq A)
+\end{equation}
+
+If $A$ is a \emph{proper} (also called strict) subset of $B$ ($A \subset B)$,
+all elements of $A$ are in $B$, but $A$ is not $B$.
+
+\begin{equation}
+    A \subset B \iff (A \subseteq B) \land (A  \not= B)
+\end{equation}
+
+If $A$ is a subset of $B$, $B$ is a superset of $A$; if $A$ is a proper subset of $B$, $B$ is a proper superset of $A$.
+
+\begin{align}
+    A \subseteq B &\iff B \supseteq A \\
+    A \subset B &\iff B \supset A
+\end{align}
+
+\subsection{$-$: Difference}
+
+The difference of sets $A$ and $B$ ($A$ - $B$) is every element of $A$ that is not in $B$.
+
+\begin{align}
+    A - B &= A \cap \overline{B} \\
+    \vert A - B \vert &= \vert A \cap \overline{B} \vert
+\end{align}
+
+Set difference can also be used to define a set's absolute complement (the previously defined complement):
+
+\begin{equation}
+    \overline{S} = \mathbb{U} - S
+\end{equation}
+
+The difference of sets $A$ and $B$ ($A - B$) is sometimes called the relative complement of B with respect to A ($B \backslash A$). The absolute complement of a set $S$  ($\overline{S}) $is simply its relative complement with respect to the universal set ($\mathbb{U} \backslash {S}$).
+
+\begin{equation}
+    A - B = A \backslash B
+\end{equation}
+
+The \emph{symmetric} difference of sets $A$ and $B$ ($A \Delta B)$ is every element of one set that is not in the other set.
+
+\begin{equation}
+    A \Delta B = (A - B) \cup (B - A)
+\end{equation}
+
+\section{Set Functions}
+
+\subsection{Powerset}
+\begin{itemize}
+    \item input: set
+    \item output: set of sets
+\end{itemize}
+
+\begin{equation}
+    \mathcal{P}(S) = \{A \vert A \subseteq S\}
+\end{equation}
+
+\subsection{Cartesian Product}
+\begin{itemize}
+    \item input: two sets
+    \item output: set of ordered pairs
+\end{itemize}
+
+\begin{equation}
+    A \times B = \{(a, b) | a \in A \wedge b \in B \}
+\end{equation}
+
+If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
+
+\chapter{Counting}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ccc}
+         &  No Repetition& Yes Repetition\\
+         Order Matters &  Permutation $\text{P}(n, k)$& $n^k$\\
+         Order Does Not Matter &  Combination $\text{C}(n, k)$ & Stars \& Bars\\
+    \end{tabular}
+    \caption{Which Formula To Use}
+    \label{tab:placeholder}
+\end{table}
+
+\section{Counting We've Seen}
+
+\begin{align*}
+    \text{let } A &= \{1, 2, 3\} \text{ and } B = \{3, 4\}
+    \\ &\therefore \\
+    A \times B &= \{(1, 3), (1, 4), (2, 3), (2, 4), (3, 3), (3, 4)\}
+\end{align*}
+
+
+\begin{equation}
+    \vert A \times B \vert = \vert A \vert \cdot \vert B \vert
+\end{equation}
+
+\begin{equation}
+    \vert \mathcal{P}(S) \vert = 2^{\vert S \vert}
+\end{equation}
+
+\section{Product Rule: Order Matters}
+
+\subsection{Two Separate Tasks}
+\begin{itemize}
+    \item one task in $n$ ways
+    \item one task in $m$ ways
+\end{itemize}
+
+\begin{equation}
+    \text{There are } n \cdot m \text{ ways to do task 1 \textbf{and} task 2.}
+\end{equation}
+
+\subsection{One Task Multiple Ways}
+When repetition is okay, we have $k$ tasks and $n$ choices per task; there are $n^k$ ways to do it.
+
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use permutations: $\text{P}(n, k)$.
+
+\begin{align}
+    \text{$\text{P}(n, k)$} &= \text{$k$ permutations of $n$ objects is an ordering of $k$ of the objects.} \\
+    \text{P}(n, k) &= \frac{n!}{(n-k)!} \text{; } \text{P}(n, n) = n!
+\end{align}
+
+\section{Sum Rule: Order Does Not Matter}
+
+\subsection{Two Tasks}
+\begin{itemize}
+    \item one task in $n$ ways
+    \item one task in $m$ ways
+\end{itemize}
+
+\begin{equation}
+    \text{There are } n + m \text{ ways to do task 1 \textbf{or} task 2.}
+\end{equation}
+
+\subsection{One Task Multiple Ways}
+When repetition is okay, see the Stars and Bars subsection!
+
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use combinations: $\text{C}(n, k)$.
+
+\begin{align}
+    \text{$\text{C}(n, k)$} &= \text{$k$ combinations of $n$ objects is a set of $k$ of the objects.} \\
+    \text{C}(n, k) &= \frac{n!}{k!(n-k)!} \text{; } \text{C}(n, n) = 1
+\end{align}
+
+\subsection{Stars and Bars}
+
+\begin{enumerate}
+    \item Order doesn't matter
+    \item Repetition is allowed
+\end{enumerate}
+
+How many ways there are to put $n$ indistinguishable balls into $n$ distinguishable bins?
+
+This is secretly a combination problem! 
+
+\begin{align}
+    n_{\text{combination}} &= n_{\text{stars and bars}} + k_{\text{stars and bars}} + 1 \\
+    k_{\text{combination}} &= k_{\text{stars and bars}} -1
+\end{align}
+
+\end{document}
