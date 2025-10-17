@@ -1,7 +1,6 @@
 name: Build LaTeX document
 on: [push]
 
-# Add permissions for GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -26,6 +25,7 @@ jobs:
         run: |
           mkdir -p public
           cp main.pdf public/
+          cp index.html public/
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
