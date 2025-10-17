@@ -3,9 +3,19 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{float}
 
-\title{CS 1800 Notes}
+\DeclarePairedDelimiter{\card}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\makeset}{\{}{\}}
+
+\DeclareMathOperator{\comb}{C}
+\DeclareMathOperator{\perm}{P}
+
+\newcommand{\powerset}{\mathcal{P}}
+\newcommand{\universal}{\mathbb{U}}
+
+\title{A Brief Guide To Discrete Structures}
 \author{Zach Harel}
 
 \begin{document}
@@ -33,7 +43,7 @@ $p \lor q$ is true when at least one of $p$ or $q$ is true.
 
 \subsection{More Logical Operators}
 
-These operators can 
+These operators are commonly used in both mathematics and computer science due to their utility. However, they are simply combinations of the three basic operators.
 
 \subsubsection{$\implies$: Implication (IF-THEN)}
 $p \implies q$ is false only when $p$ is true and $q$ is false.
@@ -58,6 +68,8 @@ $p \oplus q$ is true when either $p$ is true or $q$ is true, but not both.
 \subsection{Logical Equivalence}
 
 Two propositions are \textbf{logically equivalent} ($\equiv$) if they have the same truth value for all possible truth assignments.
+
+There are many laws of logical equivalence; you can Google them, but here are some commonly used ones.
 
 \subsubsection{De Morgan's Laws}
 \begin{align}
@@ -110,6 +122,184 @@ Example: Let $P(x, y)$: ``$x < y$''
     \item $\exists y \, \forall x \, P(x, y)$: There exists a number larger than all numbers (FALSE)
 \end{itemize}
 
+\chapter{Representation of Numbers}
+
+\section{Numeric Bases}
+
+A number system with base $b$ uses digits $0$ through $b-1$ to represent values. The rightmost digit represents $b^0$, the next represents $b^1$, and so on.
+
+\subsection{Common Bases}
+
+\begin{itemize}
+    \item \textbf{Binary} (base 2): Uses digits 0, 1
+    \item \textbf{Octal} (base 8): Uses digits 0-7
+    \item \textbf{Decimal} (base 10): Uses digits 0-9
+    \item \textbf{Hexadecimal} (base 16): Uses digits 0-9, A-F (where A=10, B=11, ..., F=15)
+\end{itemize}
+
+\subsection{Converting From Base $b$ to Decimal}
+
+To convert a number in base $b$ to decimal, multiply each digit by its positional value and sum.
+
+\begin{equation}
+    (d_n d_{n-1} \ldots d_1 d_0)_b = d_n \cdot b^n + d_{n-1} \cdot b^{n-1} + \ldots + d_1 \cdot b^1 + d_0 \cdot b^0
+\end{equation}
+
+\textbf{Example:} $(1011)_2 = 1 \cdot 2^3 + 0 \cdot 2^2 + 1 \cdot 2^1 + 1 \cdot 2^0 = 8 + 0 + 2 + 1 = (11)_{10}$
+
+\subsection{Converting From Decimal to Base $b$}
+
+Repeatedly divide by $b$ and record remainders from bottom to top.
+
+\textbf{Example:} Convert $(13)_{10}$ to binary:
+\begin{align*}
+    13 \div 2 &= 6 \text{ remainder } 1 \\
+    6 \div 2 &= 3 \text{ remainder } 0 \\
+    3 \div 2 &= 1 \text{ remainder } 1 \\
+    1 \div 2 &= 0 \text{ remainder } 1
+\end{align*}
+
+Reading remainders from bottom to top: $(13)_{10} = (1101)_2$
+
+\subsection{Converting Between Non-Decimal Bases}
+
+Convert through decimal as an intermediate step, or use direct conversion for related bases (e.g., binary $\leftrightarrow$ hexadecimal).
+
+\textbf{Binary to Hexadecimal:} Group binary digits in sets of 4 (starting from right), convert each group to its hex equivalent.
+
+\textbf{Example:} $(11010110)_2 = (1101)(0110)_2 = (D6)_{16}$
+
+\section{Signed and Unsigned Numbers}
+
+\subsection{Unsigned Representation}
+
+All bits represent magnitude. An $n$-bit unsigned number can represent values from $0$ to $2^n - 1$.
+
+\textbf{Example:} With 8 bits, unsigned range is $0$ to $255$.
+
+\subsection{Signed Representation}
+
+Multiple methods exist to represent signed integers:
+
+\subsubsection{Sign-Magnitude}
+
+The leftmost bit is the sign bit (0 for positive, 1 for negative), remaining bits represent magnitude.
+
+\textbf{Problems:} Two representations of zero ($+0$ and $-0$), arithmetic is complex.
+
+\subsubsection{One's Complement}
+
+Negative numbers are formed by flipping all bits of the positive representation.
+
+\textbf{Problems:} Still has two zeros, arithmetic requires end-around carry.
+
+\section{Two's Complement}
+
+Two's complement is the standard representation for signed integers in modern computers.
+
+\subsection{Definition}
+
+For an $n$-bit number:
+\begin{itemize}
+    \item If the leftmost bit is 0, the number is positive (same as unsigned)
+    \item If the leftmost bit is 1, the number is negative
+\end{itemize}
+
+An $n$-bit two's complement number can represent values from $-2^{n-1}$ to $2^{n-1} - 1$.
+
+\subsection{Converting to Two's Complement}
+
+To represent $-x$ in two's complement:
+\begin{enumerate}
+    \item Write the binary representation of $x$
+    \item Flip all bits (one's complement)
+    \item Add 1
+\end{enumerate}
+
+\textbf{Example:} Find $-5$ in 8-bit two's complement:
+\begin{align*}
+    5 &= (00000101)_2 \\
+    \text{Flip bits: } &= (11111010)_2 \\
+    \text{Add 1: } &= (11111011)_2
+\end{align*}
+
+Therefore, $-5 = (11111011)_2$ in 8-bit two's complement.
+
+\subsection{Converting From Two's Complement}
+
+If the leftmost bit is 1 (negative number), apply the same process: flip all bits and add 1.
+
+\textbf{Example:} What is $(11111011)_2$ in decimal?
+\begin{align*}
+    \text{Flip bits: } &= (00000100)_2 \\
+    \text{Add 1: } &= (00000101)_2 = 5 \\
+    \text{Since original was negative: } &= -5
+\end{align*}
+
+\subsection{Properties of Two's Complement}
+
+\begin{itemize}
+    \item Only one representation of zero: $(00...0)_2$
+    \item Range for $n$ bits: $-2^{n-1}$ to $2^{n-1} - 1$
+    \item The negative of a number equals its two's complement
+    \item The leftmost bit has weight $-2^{n-1}$
+\end{itemize}
+
+\section{Arithmetic in Two's Complement}
+
+\subsection{Addition}
+
+Add numbers normally using binary addition. Discard any carry out of the leftmost bit.
+
+\textbf{Example:} $5 + (-3) = 2$ in 8-bit two's complement:
+\begin{align*}
+    00000101 \text{ (5)} \\
+    + \, 11111101 \text{ (-3)} \\
+    \hline
+    1\,00000010 \text{ (discard carry, result = 2)}
+\end{align*}
+
+\subsection{Subtraction}
+
+To compute $a - b$, add $a$ and the two's complement of $b$: $a + (-b)$.
+
+\textbf{Example:} $7 - 5 = 7 + (-5)$:
+\begin{align*}
+    00000111 \text{ (7)} \\
+    + \, 11111011 \text{ (-5)} \\
+    \hline
+    1\,00000010 \text{ (result = 2)}
+\end{align*}
+
+\subsection{Overflow Detection}
+
+Overflow occurs when the result exceeds the representable range.
+
+\textbf{Overflow conditions:}
+\begin{itemize}
+    \item Adding two positive numbers yields a negative result
+    \item Adding two negative numbers yields a positive result
+    \item Equivalent: carry into the sign bit $\neq$ carry out of the sign bit
+\end{itemize}
+
+\textbf{Example:} $127 + 1$ in 8-bit (overflow):
+\begin{align*}
+    01111111 \text{ (127)} \\
+    + \, 00000001 \text{ (1)} \\
+    \hline
+    10000000 \text{ (-128, overflow!)}
+\end{align*}
+
+\subsection{Sign Extension}
+
+To represent an $n$-bit two's complement number with more bits, copy the sign bit into all new leftmost positions.
+
+\textbf{Example:} Extend $(-5)$ from 8-bit to 16-bit:
+\begin{align*}
+    \text{8-bit: } &11111011 \\
+    \text{16-bit: } &1111111111111011
+\end{align*}
+
 \chapter{Sets}
 
 \section{What is a Set?}
@@ -118,7 +308,7 @@ A set is simply an unordered collection of unique items.
 
 \section{Default Sets}
 
-\subsection{$\mathbb{U}$: The Universal Set}
+\subsection{$\universal$: The Universal Set}
 Contains every element in our domain (must be defined for each problem/set of problems).
 
 \subsection{$\varnothing$: The Empty Set} 
@@ -134,22 +324,22 @@ Two sets are equal if all of their elements are the same.
     (A = B) \iff (\forall x (x \in A \iff x \in B))
 \end{equation}
 
-\subsection{$\vert S\vert$: Cardinality}
+\subsection{$\card{S}$: Cardinality}
 
 The cardinality of set $S$ ($\vert S \vert$) is the number of elements in set $S$.
 
 \begin{equation}
-    \vert \{1, 2, 3\} \vert = 3
+    \card{\makeset{1, 2, 3}} = 3
 \end{equation}
 
 \subsection{$\overline{S}$: Complement}
 
 The complement of a set $S$ ($\overline{S}$) is the set of every element (of the universal set) that is not in $S$.
 
-For example, if $\mathbb{U} = \{1, 2, 3, 4, 5\}$ and $S = \{1, 4\}$, $\overline{S} = \{2, 3, 5\}$.
+For example, if $\universal = \makeset{1, 2, 3, 4, 5}$ and $S = \makeset{1, 4}$, $\overline{S} = \makeset{2, 3, 5}$.
 
 \begin{equation}
-    \vert \overline{S} \vert = \vert \mathbb{U} \vert - \vert S \vert
+    \vert \overline{S} \vert = \vert \universal \vert - \vert S \vert
 \end{equation}
 
 \subsection{$\cap$: Intersection}
@@ -157,7 +347,7 @@ For example, if $\mathbb{U} = \{1, 2, 3, 4, 5\}$ and $S = \{1, 4\}$, $\overline{
 The intersection of sets $A$ and $B$ ($A \cap B$) contains every element in both sets.
 
 \begin{equation}
-    A \cap B = \{x \vert x \in A \land x \in B\} 
+    A \cap B = \{x | x \in A \land x \in B\} 
 \end{equation}
 
 \subsection{$\cup$: Union}
@@ -166,7 +356,7 @@ The union of sets $A$ and $B$ ($A \cup B$) contains every element in either set 
 
 \begin{align}
     A \cup B &= \{x \vert x \in A \lor x \in B\} \\
-    \vert A \cup B \vert &= \vert A \vert + \vert B \vert - \vert A \cap B \vert
+    \card{A \cup B} &= \card{A} + \card{B} + \card{A \cap B}
 \end{align}
 
 \subsection{$\subseteq$: Subset}
@@ -209,16 +399,16 @@ The difference of sets $A$ and $B$ ($A$ - $B$) is every element of $A$ that is n
 
 \begin{align}
     A - B &= A \cap \overline{B} \\
-    \vert A - B \vert &= \vert A \cap \overline{B} \vert
+    \card{A - B} &= \card{A \cap \overline{B}}
 \end{align}
 
 Set difference can also be used to define a set's absolute complement (the previously defined complement):
 
 \begin{equation}
-    \overline{S} = \mathbb{U} - S
+    \overline{S} = \universal - S
 \end{equation}
 
-The difference of sets $A$ and $B$ ($A - B$) is sometimes called the relative complement of B with respect to A ($B \backslash A$). The absolute complement of a set $S$  ($\overline{S}) $is simply its relative complement with respect to the universal set ($\mathbb{U} \backslash {S}$).
+The difference of sets $A$ and $B$ ($A - B$) is sometimes called the relative complement of B with respect to A ($B \backslash A$). The absolute complement of a set $S$  ($\overline{S}) $is simply its relative complement with respect to the universal set ($\universal \backslash {S}$).
 
 \begin{equation}
     A - B = A \backslash B
@@ -239,7 +429,7 @@ The \emph{symmetric} difference of sets $A$ and $B$ ($A \Delta B)$ is every elem
 \end{itemize}
 
 \begin{equation}
-    \mathcal{P}(S) = \{A \vert A \subseteq S\}
+    \powerset(S) = \{A \vert A \subseteq S\}
 \end{equation}
 
 \subsection{Cartesian Product}
@@ -260,8 +450,8 @@ If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
     \centering
     \begin{tabular}{ccc}
          &  No Repetition& Yes Repetition\\
-         Order Matters &  Permutation $\text{P}(n, k)$& $n^k$\\
-         Order Does Not Matter &  Combination $\text{C}(n, k)$ & Stars \& Bars\\
+         Order Matters &  Permutation $\perm(n, k)$& $n^k$\\
+         Order Does Not Matter &  Combination $\comb(n, k)$ & Stars \& Bars\\
     \end{tabular}
     \caption{Which Formula To Use}
     \label{tab:placeholder}
@@ -270,18 +460,18 @@ If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
 \section{Counting We've Seen}
 
 \begin{align*}
-    \text{let } A &= \{1, 2, 3\} \text{ and } B = \{3, 4\}
+    \text{let } A &= \makeset{1, 2, 3} \text{ and } B = \makeset{3, 4}
     \\ &\therefore \\
-    A \times B &= \{(1, 3), (1, 4), (2, 3), (2, 4), (3, 3), (3, 4)\}
+    A \times B &= \makeset{(1, 3), (1, 4), (2, 3), (2, 4), (3, 3), (3, 4)}
 \end{align*}
 
 
 \begin{equation}
-    \vert A \times B \vert = \vert A \vert \cdot \vert B \vert
+    \card{A \times B} = \card{A} \cdot \card{B}
 \end{equation}
 
 \begin{equation}
-    \vert \mathcal{P}(S) \vert = 2^{\vert S \vert}
+    \card{\powerset(S)} = 2^{\card{S}}
 \end{equation}
 
 \section{Product Rule: Order Matters}
@@ -299,11 +489,11 @@ If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
 \subsection{One Task Multiple Ways}
 When repetition is okay, we have $k$ tasks and $n$ choices per task; there are $n^k$ ways to do it.
 
-When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use permutations: $\text{P}(n, k)$.
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use permutations: $\perm(n, k)$.
 
 \begin{align}
-    \text{$\text{P}(n, k)$} &= \text{$k$ permutations of $n$ objects is an ordering of $k$ of the objects.} \\
-    \text{P}(n, k) &= \frac{n!}{(n-k)!} \text{; } \text{P}(n, n) = n!
+    \text{$\perm(n, k)$} &= \text{$k$ permutations of $n$ objects is an ordering of $k$ of the objects.} \\
+    \perm(n, k) &= \frac{n!}{(n-k)!} \text{; } \perm(n, n) = n!
 \end{align}
 
 \section{Sum Rule: Order Does Not Matter}
@@ -321,11 +511,11 @@ When repetition is not okay, we have $k$ tasks and $n$ choices for the first tas
 \subsection{One Task Multiple Ways}
 When repetition is okay, see the Stars and Bars subsection!
 
-When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use combinations: $\text{C}(n, k)$.
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use combinations: $\comb(n, k)$.
 
 \begin{align}
-    \text{$\text{C}(n, k)$} &= \text{$k$ combinations of $n$ objects is a set of $k$ of the objects.} \\
-    \text{C}(n, k) &= \frac{n!}{k!(n-k)!} \text{; } \text{C}(n, n) = 1
+    \text{$\comb(n, k)$} &= \text{$k$ combinations of $n$ objects is a set of $k$ of the objects.} \\
+    \comb(n, k) &= \frac{n!}{k!(n-k)!} \text{; } \comb(n, n) = 1
 \end{align}
 
 \subsection{Stars and Bars}
@@ -335,7 +525,7 @@ When repetition is not okay, we have $k$ tasks and $n$ choices for the first tas
     \item Repetition is allowed
 \end{enumerate}
 
-How many ways there are to put $n$ indistinguishable balls into $n$ distinguishable bins?
+How many ways are there to put $n$ indistinguishable balls into $n$ distinguishable bins?
 
 This is secretly a combination problem! 
 
@@ -343,5 +533,17 @@ This is secretly a combination problem!
     n_{\text{combination}} &= n_{\text{stars and bars}} + k_{\text{stars and bars}} + 1 \\
     k_{\text{combination}} &= k_{\text{stars and bars}} -1
 \end{align}
+
+This means that the answer to our initial question is simply
+$\comb(n + k + 1, k - 1)!$
+
+\section{The Pigeonhole Principle}
+
+The bridge between Counting and Probability!
+We are putting objects in boxes.
+
+If there are 200 people in a room, it is guaranteed that at least 17 of them share a birth month. It is not guaranteed (it is likely) that even one person was born in October (or any other month, for that matter). 
+
+\chapter{Probability}
 
 \end{document}
