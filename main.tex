@@ -743,7 +743,7 @@ And
 
 With this sequence, $b_1 = -1$, $b_2 = 1$, and $b_{124} = 1$.
 
-\section{Summations}
+\section{Specific Series}
 
 \subsection{Arithmetic Series}
 
@@ -760,5 +760,39 @@ For any geometric series $a_k = a \cdotp r^{k-1}$, the sum of the first $n$ term
 \begin{equation}
     \sum_{k=1}^{n}{a_k} = \frac{a_1 \cdotp r^n - a_1}{r-1}
 \end{equation}
+
+\section{Summation Rules}
+
+\subsubsection{Constant Summation}
+
+\begin{equation}
+    \sum_{i=1}^{n}{k} = nk
+\end{equation}
+
+where $k \in \mathbb{R}$
+
+\subsubsection{Constant Multiplication}
+
+\begin{equation}
+    \sum_{i=1}^{n} a_i = k \sum_{i=1}^{n} a_i
+\end{equation}
+
+where $k \in \mathbb{R}$ and $a_i$ is the $i$th term of a sequence $\{a_n\}$.
+
+\subsubsection{Summation Bounds}
+
+\begin{equation}
+    \sum_{i=a}^{n} s_i = \sum_{i=1}^{n} s_i + \sum_{i=1}^{a-1} s_i
+\end{equation}
+
+where $a \in \mathbb{N}$ and $s_i$ is the $i$th term of a sequence $\{s_n\}$.
+
+\subsubsection{Summation Addition}
+
+\begin{equation}
+    \sum_{i=1}^{n} a_i + b_i = \sum_{i=1}^{n} a_i + \sum_{i=1}^{n} b_i
+\end{equation}
+
+where $a_i$ and $b_i$ are the $i$th term of sequences $\{a_n\}$ and $\{b_n\}$ respectively.
 
 \end{document}
