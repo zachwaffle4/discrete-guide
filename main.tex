@@ -6,6 +6,8 @@
 \usepackage{mathtools}
 \usepackage{float}
 
+\setlength{\parindent}{0pt}
+
 \DeclarePairedDelimiter{\card}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\makeset}{\{}{\}}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
@@ -583,13 +585,16 @@ Subset of outcomes we care about.
 
 How likely event $E$ is to occur.
 
-\begin{equation}
-    \prob(E) = \frac{\card{E}}{\card{S}}
-\end{equation}
+\begin{align}
+    \prob(E) &= \frac{\card{E}}{\card{S}} \\
+    \prob(\lnot{E}) &= \frac{\card{\overline{E}}}{\card{S}} = 1 - \prob(E)
+\end{align}
+
+The RHS of equation 5.4 works because the sample space $S$ is the universal set of events. Note that despite treating $E$ like a set, the logical not ($\lnot$) symbol is used to mark an event \emph{not} occurring.
 
 \subsubsection{Expected Value $x$}
 
-A numeric value associated with the outcome of the experiment. Used because we can't take the average of "pink sock" or "queen of hearts".
+A numeric value associated with the outcome of the experiment. Used because we can't take the average of 'pink sock' or 'queen of hearts'.
 
 \section{Probability of Multiple Events}
 
@@ -610,6 +615,36 @@ Two events are independent if the outcome of one doesn't affect the outcome of t
 \end{equation}
 
 In addition to determining the probability of two events that we \emph{know} are independent, we can also use that formula to determine \emph{if} two events are independent.
+
+\subsection{Conditional Probability}
+
+The likelihood of an event $E$ occurring,  given that another event $F$ has already happened. The probability of $E$ given $F$ is written as $\prob(E | F)$.
+
+\begin{equation}
+    \prob(E | F) = \frac{\prob(E \cap F)}{\prob(F)}
+\end{equation}
+
+Note that when calculating $\prob(E \cap F)$, $E$ and $F$ are \emph{not} independent; formula 5.6 does not apply. However, we can arrange that equation to find that
+
+\begin{equation}
+    \prob(E \cap F) = \prob(E | F) \cdot \prob(F)
+\end{equation}
+
+\subsection{Bayes' Theorem}
+
+Bayes' theorem states
+
+\begin{equation}
+    \prob(E | F) = \frac{\prob(F | E) \cdot \prob(E)}{\prob(F)}
+\end{equation}
+
+\subsection{General Insights}
+
+Given that $\prob(F) = \prob(F \cap E) + \prob(F \cap \lnot{E})$ and what was discovered in equation 5.8, we can find that
+
+\begin{equation}
+    \prob(F) = \prob(F | E) \cdot \prob(E) + \prob(F | \lnot{E}) \cdot \prob(\lnot{E})
+\end{equation}
 
 \section{Expectations}
 
@@ -633,12 +668,92 @@ What if we wanted to know the number of heads if we flip a coin 100 times?
     E(x_1 + x_2 + \cdots + x_n) = E[x_1] + E[x_2] + \cdots + E[x_n]
 \end{equation}
 
-\subsubsection{Example}
+\chapter{Sequences and Series}
 
-Roll two die 100 times.
-What is $E[$roll 1 + roll 2 + $\cdots$ + roll 100$]$?
+A sequence is a discrete structure used to discover and characterize patterns (such as earthquakes, comets, and the stock market).
 
-$E[x]$ for any roll is 3.5, so we really just have 3.5 100 times, or 350.
+\begin{quote}
+    A sequence is an ordered list of potentially an infinite number of numbers.
+\end{quote}
 
+\section{Definition}
+
+A sequence is defined like $\makeset{a_n} = a_1, a_2, a_3, \cdots, a_n$. If the sequence is infinite, there is no $n$th term. \medskip
+
+An infinite sequence is also defined as a mapping from $\mathbb{Z}^+$ to $\makeset{a_n}$.
+
+\subsection{Notation}
+\begin{itemize}
+    \item $a_n$: the whole sequence or the final term
+    \item $a_k$: any one arbitrary term
+\end{itemize}
+
+\subsection{Forms}
+
+\subsubsection{Recursive Form}
+
+A sequence can be defined recursively, using the previous term. \medskip
+
+An arithmetic sequence can be defined recursively like this:
+
+\begin{equation}
+    a_k = a_{k-1} + \beta
+\end{equation}
+
+A geometric sequence can be defined recursively like this:
+
+\begin{equation}
+    a_k = \beta \cdot a_{k-1}
+\end{equation}
+
+\subsubsection{Closed Form}
+
+A closed form sequence does not depend on any other term. \medskip
+
+An arithmetic sequence can be defined explicitly like this:
+
+\begin{equation}
+    a_k = \beta \cdot k
+\end{equation}
+
+A geometric sequence can be defined recursively like this:
+
+\begin{equation}
+    a_k = \beta^k
+\end{equation}
+
+Of course, other types of sequences exist, such as:
+
+\begin{equation*}
+    {a_n} \forall n \in \mathbb{Z}^+ a_k = \frac{k}{k+1}
+\end{equation*}
+
+With this sequence, $a_1 = \frac{1}{2}$, $a_2 = \frac{2}{3}$, and $a_{512} = \frac{512}{513}$. \medskip
+
+And
+
+\begin{equation*}
+    {b_n} \forall n \in \mathbb{Z}^+ b_k = (-1)^k
+\end{equation*}
+
+With this sequence, $b_1 = -1$, $b_2 = 1$, and $b_{124} = 1$.
+
+\section{Summations}
+
+\subsection{Arithmetic Series}
+
+For any arithmetic series $a_k = a + (k-1)d$, the sum of the first $n$ terms is
+
+\begin{equation}
+    \sum_{k=1}^{n}{a_k} = \frac{n(a_1 \cdot a_n)}{2}
+\end{equation}
+
+\subsection{Geometric Series}
+
+For any geometric series $a_k = a \cdotp r^{k-1}$, the sum of the first $n$ terms is
+
+\begin{equation}
+    \sum_{k=1}^{n}{a_k} = \frac{a_1 \cdotp r^n - a_1}{r-1}
+\end{equation}
 
 \end{document}
