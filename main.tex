@@ -6,6 +6,8 @@
 \usepackage{mathtools}
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
 
 \setlength{\parindent}{0pt}
 
@@ -15,9 +17,10 @@
 \DeclarePairedDelimiter{\makeset}{\{}{\}}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 
-\DeclareMathOperator{\comb}{C}
-\DeclareMathOperator{\perm}{P}
 \DeclareMathOperator{\prob}{Pr}
+
+\newcommand{\comb}[2]{\operatorname{C}_{#2}^{#1}}
+\newcommand{\perm}[2]{\operatorname{P}_{#2}^{#1}}
 
 \newcommand{\powerset}{\mathcal{P}}
 \newcommand{\universal}{\mathbb{U}}
@@ -459,8 +462,8 @@ If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
     \centering
     \begin{tabular}{ccc}
          &  No Repetition& Yes Repetition\\
-         Order Matters &  Permutation $\perm(n, k)$& $n^k$\\
-         Order Does Not Matter &  Combination $\comb(n, k)$ & Stars \& Bars\\
+         Order Matters &  Permutation $\perm{n}{k}$& $n^k$\\
+         Order Does Not Matter &  Combination $\comb{n}{k}$ & Stars \& Bars\\
     \end{tabular}
     \caption{Which Formula To Use}
     \label{tab:placeholder}
@@ -498,11 +501,11 @@ If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
 \subsection{One Task Multiple Ways}
 When repetition is okay, we have $k$ tasks and $n$ choices per task; there are $n^k$ ways to do it.
 
-When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use permutations: $\perm(n, k)$.
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use permutations: $\perm{n}{k}$.
 
 \begin{align}
-    \text{$\perm(n, k)$} &= \text{$k$ permutations of $n$ objects is an ordering of $k$ of the objects.} \\
-    \perm(n, k) &= \frac{n!}{(n-k)!} \text{; } \perm(n, n) = n!
+    \text{$\perm{n}{k}$} &= \text{$k$ permutations of $n$ objects is an ordering of $k$ of the objects.} \\
+    \perm{n}{k} &= \frac{n!}{(n-k)!} \text{; } \perm{n}{n} = n!
 \end{align}
 
 \section{Sum Rule: Order Does Not Matter}
@@ -520,11 +523,11 @@ When repetition is not okay, we have $k$ tasks and $n$ choices for the first tas
 \subsection{One Task Multiple Ways}
 When repetition is okay, see the Stars and Bars subsection!
 
-When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use combinations: $\comb(n, k)$.
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use combinations: $\comb{n}{k}$.
 
 \begin{align}
-    \text{$\comb(n, k)$} &= \text{$k$ combinations of $n$ objects is a set of $k$ of the objects.} \\
-    \comb(n, k) &= \frac{n!}{k!(n-k)!} \text{; } \comb(n, n) = 1
+    \text{$\comb{n}{k}$} &= \text{$k$ combinations of $n$ objects is a set of $k$ of the objects.} \\
+    \comb{n}{k} &= \frac{n!}{k!(n-k)!} \text{; } \comb{n}{n} = 1
 \end{align}
 
 \subsection{Stars and Bars}
@@ -544,7 +547,7 @@ This is secretly a combination problem!
 \end{align}
 
 This means that the answer to our initial question is simply
-$\comb(n + k + 1, k - 1)!$
+$\comb{n + k + 1}{k - 1}$
 
 \section{The Pigeonhole Principle}
 
@@ -794,5 +797,82 @@ where $a \in \mathbb{N}$ and $s_i$ is the $i$th term of a sequence $\{s_n\}$.
 \end{equation}
 
 where $a_i$ and $b_i$ are the $i$th term of sequences $\{a_n\}$ and $\{b_n\}$ respectively.
+
+\chapter{Mathematical Induction}
+
+Proof by induction is a technique used in mathematics and computer science. Given some predicate $P(x)$, a proof by induction is a shortcut to prove $\forall n \in \mathbb{Z}^+$, $P(n)$ by proving that $P(k) \implies P(k+1)$.
+
+\section{Structure}
+
+A proof by induction has some major components:
+
+\subsection{Predicate and Logic Statement}
+
+The first part is the predicate, which is usually an equation or statement that may or may not be true for any given value of its inputs. Some examples include:
+
+\begin{itemize}
+    \item $\displaystyle P(x): \sum_{i=1}^{x} i = \frac{i(i+1)}{2}$
+    \item $P(x): 6^x + 4$ is a multiple of 5
+\end{itemize}
+
+We then create a logic statement so that we can actually prove it:
+
+\begin{equation}
+    \forall n \in \mathbb{Z}^+, P(n)
+\end{equation}
+
+\subsection{Inductive Hypothesis and Implication}
+
+To prove that the logic statement is true, we prove the implication
+
+\begin{equation}
+    P(k) \implies P(k+1)
+\end{equation}
+
+and assume $P(k)$ is true. That assumption is called the inductive hypothesis.
+
+\subsection{Base Case}
+
+The base case is a proof for the smallest value of $x$ that we want to prove. The inductive cases will follow it.
+
+\subsection{Inductive Step}
+
+Now that we assume $P(k)$ is true and we've proven $P(x)$ for the smallest value of $x$, we can use it to prove $P(k+1)$.
+
+\section{Example: Integer Summations}
+
+\begin{align*}
+    P(x) = \sum_{i=1}^{x} &= \frac{x(x+1)}{2} \\
+    \forall n \in \mathbb{Z}^+ &, P(n)
+\end{align*}
+
+\textbf{Base case:}
+
+\begin{equation*}
+P(1): \quad \sum_{i=1}^{1} i = \frac{(1)(1+1)}{2} = \frac{2}{2} = 1 \quad \text{(this is trivially true)}
+\end{equation*}
+
+\textbf{Inductive step}: We want to show $P(k) \implies P(k + 1)$
+
+\textit{Inductive hypothesis}: $P(k)$ is true: $\displaystyle \sum_{i=1}^{k} i = 1 + 2 + 3 + \ldots + k = \frac{k(k+1)}{2}$
+
+\vspace{1em}
+
+We want to show $P(k + 1)$ $\displaystyle \sum_{i=1}^{k+1} i = 1 + 2 + 3 + \ldots + k + 1 = \frac{(k+1)(k+2)}{2}$
+
+\vspace{1em}
+
+Start with the definition of $\displaystyle \sum_{i=1}^{k+1} i$ and express the summation including the term preceding $k+1$:
+
+\begin{align*}
+\sum_{i=1}^{k+1} i &= 1 + 2 + 3 + \ldots + k + 1 = \quad 1 + 2 + 3 + \ldots + k + (k + 1) \\
+&= \frac{k(k+1)}{2} + (k + 1) && \text{(By inductive hypothesis)} \\
+&= \frac{k(k+1)}{2} + \frac{2(k + 1)}{2} && \text{(Multiply second term by } 
+\frac{2}{2} \text{)} \\
+&= \frac{k(k+1)+2(k+1)}{2} && \text{(Add fractions)} \\
+&= \frac{k^2+k+2k+2}{2} && \text{(Multiply through)} \\
+&= \frac{k^2+3k+2}{2} && \text{(Rearrange)} \\
+&= \frac{(k+1)(k+2)}{2} && \text{(Polynomial. Done!)}
+\end{align*}
 
 \end{document}
