@@ -1,6 +1,6 @@
 \documentclass{report}
 \usepackage[letterpaper, margin=1in]{geometry}
-\usepackage{graphicx}
+\usepackage{graphicx} % Required for inserting images
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -11,24 +11,8 @@
 \usepackage{amsthm}
 
 \setlength{\parindent}{0pt}
+
 \setcounter{tocdepth}{1}
-
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
-\newtheorem{corollary}{Corollary}
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem*{example}{Example}
-\newtheorem*{remark}{Remark}
-
-\numberwithin{theorem}{chapter}
-\numberwithin{lemma}{chapter}
-\numberwithin{proposition}{chapter}
-\numberwithin{corollary}{chapter}
-\numberwithin{definition}{chapter}
 
 \DeclarePairedDelimiter{\card}{\lvert}{\rvert}
 \DeclarePairedDelimiter{\makeset}{\{}{\}}
@@ -48,240 +32,186 @@
 \begin{document}
 
 \maketitle
+
 \tableofcontents
 
 \chapter{Logic}
 
 \section{Propositional Logic}
 
-\begin{definition}
 A \textbf{proposition} is a statement that is either true or false.
-\end{definition}
 
 \subsection{Basic Logical Operators}
 
-\begin{remark}
 Everything in propositional logic can be created using only NOT, AND, and OR.
-\end{remark}
 
-\begin{definition}[Negation]
-The negation of $p$ (denoted $\neg p$) is true when $p$ is false, and false when $p$ is true.
-\end{definition}
+\subsubsection{$\neg$: Negation (NOT)}
+The negation of $p$ ($\neg p$) is true when $p$ is false, and false when $p$ is true.
 
-\begin{definition}[Conjunction]
+\subsubsection{$\land$: Conjunction (AND)}
 $p \land q$ is true only when both $p$ and $q$ are true.
-\end{definition}
 
-\begin{definition}[Disjunction]
+\subsubsection{$\lor$: Disjunction (OR)}
 $p \lor q$ is true when at least one of $p$ or $q$ is true.
-\end{definition}
 
 \subsection{More Logical Operators}
 
-\begin{remark}
 These operators are commonly used in both mathematics and computer science due to their utility. However, they are simply combinations of the three basic operators.
-\end{remark}
 
-\begin{definition}[Implication]
-$p \implies q$ is false only when $p$ is true and $q$ is false. We call $p$ the \textbf{hypothesis} (or antecedent) and $q$ the \textbf{conclusion} (or consequent).
-\end{definition}
+\subsubsection{$\implies$: Implication (IF-THEN)}
+$p \implies q$ is false only when $p$ is true and $q$ is false.
 
-\begin{theorem}
+\begin{itemize}
+    \item $p$ is the \textbf{hypothesis} (or antecedent)
+    \item $q$ is the \textbf{conclusion} (or consequent)
+\end{itemize}
+
 \begin{equation}
-p \implies q \equiv \lnot p \lor q
+    p \implies q \equiv \lnot p \lor q
 \end{equation}
-\end{theorem}
 
-\begin{definition}[Exclusive Disjunction]
+\subsubsection{$\oplus$: Exclusive Disjunction (XOR)}
+
 $p \oplus q$ is true when either $p$ is true or $q$ is true, but not both.
-\end{definition}
 
-\begin{theorem}
 \begin{equation}
-p \oplus q \equiv (p \lor q) \land \lnot(p \land q)
+    p \oplus q \equiv (p \lor q) \land \lnot(p \land q)
 \end{equation}
-\end{theorem}
 
 \subsection{Logical Equivalence}
 
-\begin{definition}
-Two propositions are \textbf{logically equivalent} (denoted $\equiv$) if they have the same truth value for all possible truth assignments.
-\end{definition}
+Two propositions are \textbf{logically equivalent} ($\equiv$) if they have the same truth value for all possible truth assignments.
 
-\begin{remark}
-There are many laws of logical equivalence. Here are some commonly used ones.
-\end{remark}
+There are many laws of logical equivalence; you can Google them, but here are some commonly used ones.
 
-\begin{theorem}[De Morgan's Laws]
+\subsubsection{De Morgan's Laws}
 \begin{align}
-\neg(p \land q) &\equiv \neg p \lor \neg q \\
-\neg(p \lor q) &\equiv \neg p \land \neg q
+    \neg(p \land q) &\equiv \neg p \lor \neg q \\
+    \neg(p \lor q) &\equiv \neg p \land \neg q
 \end{align}
-\end{theorem}
 
-\begin{theorem}[Double Negation]
+\subsubsection{Double Negation}
 \begin{equation}
-\neg(\neg p) \equiv p
+    \neg(\neg p) \equiv p
 \end{equation}
-\end{theorem}
 
-\begin{theorem}[Contrapositive]
+\subsubsection{Contrapositive}
 \begin{equation}
-(p \implies q) \equiv (\neg q \implies \neg p)
+    (p \implies q) \equiv (\neg q \implies \neg p)
 \end{equation}
-\end{theorem}
 
 \section{First-Order Logic}
 
-\begin{definition}
 First-order logic extends propositional logic with \textbf{predicates} and \textbf{quantifiers}.
-\end{definition}
 
 \subsection{Predicates}
 
-\begin{definition}
 A \textbf{predicate} is a statement containing variables that becomes a proposition when variables are assigned values.
-\end{definition}
 
-\begin{example}
-$P(x)$: ``$x$ is even'' becomes a proposition when $x$ is specified.
-\end{example}
+Example: $P(x)$: ``$x$ is even'' becomes a proposition when $x$ is specified.
 
 \subsection{Quantifiers}
 
-\begin{definition}[Universal Quantifier]
+\subsubsection{$\forall$: Universal Quantifier (FOR ALL)}
 $\forall x \, P(x)$ means $P(x)$ is true for every value of $x$ in the domain.
-\end{definition}
 
-\begin{definition}[Existential Quantifier]
+\subsubsection{$\exists$: Existential Quantifier (THERE EXISTS)}
 $\exists x \, P(x)$ means there is at least one value of $x$ in the domain for which $P(x)$ is true.
-\end{definition}
 
 \subsection{Negating Quantifiers}
 
-\begin{theorem}
 \begin{align}
-\neg(\forall x \, P(x)) &\equiv \exists x \, \neg P(x) \\
-\neg(\exists x \, P(x)) &\equiv \forall x \, \neg P(x)
+    \neg(\forall x \, P(x)) &\equiv \exists x \, \neg P(x) \\
+    \neg(\exists x \, P(x)) &\equiv \forall x \, \neg P(x)
 \end{align}
-\end{theorem}
 
 \subsection{Multiple Quantifiers}
 
-\begin{remark}
 Order matters! $\forall x \, \exists y \, P(x, y)$ is different from $\exists y \, \forall x \, P(x, y)$.
-\end{remark}
 
-\begin{example}
-Let $P(x, y)$: ``$x < y$''
+Example: Let $P(x, y)$: ``$x < y$''
 \begin{itemize}
     \item $\forall x \, \exists y \, P(x, y)$: For every number, there exists a larger number (TRUE)
     \item $\exists y \, \forall x \, P(x, y)$: There exists a number larger than all numbers (FALSE)
 \end{itemize}
-\end{example}
 
 \chapter{Representation of Numbers}
 
 \section{Numeric Bases}
 
-\begin{definition}
 A number system with base $b$ uses digits $0$ through $b-1$ to represent values. The rightmost digit represents $b^0$, the next represents $b^1$, and so on.
-\end{definition}
 
 \subsection{Common Bases}
 
-\begin{definition}
 \begin{itemize}
     \item \textbf{Binary} (base 2): Uses digits 0, 1
     \item \textbf{Octal} (base 8): Uses digits 0-7
     \item \textbf{Decimal} (base 10): Uses digits 0-9
     \item \textbf{Hexadecimal} (base 16): Uses digits 0-9, A-F (where A=10, B=11, ..., F=15)
 \end{itemize}
-\end{definition}
 
 \subsection{Converting From Base $b$ to Decimal}
 
-\begin{theorem}
-To convert a number in base $b$ to decimal, multiply each digit by its positional value and sum:
-\begin{equation}
-(d_n d_{n-1} \ldots d_1 d_0)_b = d_n \cdot b^n + d_{n-1} \cdot b^{n-1} + \ldots + d_1 \cdot b^1 + d_0 \cdot b^0
-\end{equation}
-\end{theorem}
+To convert a number in base $b$ to decimal, multiply each digit by its positional value and sum.
 
-\begin{example}
-$(1011)_2 = 1 \cdot 2^3 + 0 \cdot 2^2 + 1 \cdot 2^1 + 1 \cdot 2^0 = 8 + 0 + 2 + 1 = (11)_{10}$
-\end{example}
+\begin{equation}
+    (d_n d_{n-1} \ldots d_1 d_0)_b = d_n \cdot b^n + d_{n-1} \cdot b^{n-1} + \ldots + d_1 \cdot b^1 + d_0 \cdot b^0
+\end{equation}
+
+\textbf{Example:} $(1011)_2 = 1 \cdot 2^3 + 0 \cdot 2^2 + 1 \cdot 2^1 + 1 \cdot 2^0 = 8 + 0 + 2 + 1 = (11)_{10}$
 
 \subsection{Converting From Decimal to Base $b$}
 
-\begin{theorem}
 Repeatedly divide by $b$ and record remainders from bottom to top.
-\end{theorem}
 
-\begin{example}
-Convert $(13)_{10}$ to binary:
+\textbf{Example:} Convert $(13)_{10}$ to binary:
 \begin{align*}
-13 \div 2 &= 6 \text{ remainder } 1 \\
-6 \div 2 &= 3 \text{ remainder } 0 \\
-3 \div 2 &= 1 \text{ remainder } 1 \\
-1 \div 2 &= 0 \text{ remainder } 1
+    13 \div 2 &= 6 \text{ remainder } 1 \\
+    6 \div 2 &= 3 \text{ remainder } 0 \\
+    3 \div 2 &= 1 \text{ remainder } 1 \\
+    1 \div 2 &= 0 \text{ remainder } 1
 \end{align*}
+
 Reading remainders from bottom to top: $(13)_{10} = (1101)_2$
-\end{example}
 
 \subsection{Converting Between Non-Decimal Bases}
 
-\begin{theorem}
 Convert through decimal as an intermediate step, or use direct conversion for related bases (e.g., binary $\leftrightarrow$ hexadecimal).
-\end{theorem}
 
-\begin{theorem}[Binary to Hexadecimal]
-Group binary digits in sets of 4 (starting from right), convert each group to its hex equivalent.
-\end{theorem}
+\textbf{Binary to Hexadecimal:} Group binary digits in sets of 4 (starting from right), convert each group to its hex equivalent.
 
-\begin{example}
-$(11010110)_2 = (1101)(0110)_2 = (D6)_{16}$
-\end{example}
+\textbf{Example:} $(11010110)_2 = (1101)(0110)_2 = (D6)_{16}$
 
 \section{Signed and Unsigned Numbers}
 
 \subsection{Unsigned Representation}
 
-\begin{definition}
 All bits represent magnitude. An $n$-bit unsigned number can represent values from $0$ to $2^n - 1$.
-\end{definition}
 
-\begin{example}
-With 8 bits, unsigned range is $0$ to $255$.
-\end{example}
+\textbf{Example:} With 8 bits, unsigned range is $0$ to $255$.
 
 \subsection{Signed Representation}
 
-\begin{definition}[Sign-Magnitude]
+Multiple methods exist to represent signed integers:
+
+\subsubsection{Sign-Magnitude}
+
 The leftmost bit is the sign bit (0 for positive, 1 for negative), remaining bits represent magnitude.
-\end{definition}
 
-\begin{remark}
-Problems: Two representations of zero ($+0$ and $-0$), arithmetic is complex.
-\end{remark}
+\textbf{Problems:} Two representations of zero ($+0$ and $-0$), arithmetic is complex.
 
-\begin{definition}[One's Complement]
+\subsubsection{One's Complement}
+
 Negative numbers are formed by flipping all bits of the positive representation.
-\end{definition}
 
-\begin{remark}
-Problems: Still has two zeros, arithmetic requires end-around carry.
-\end{remark}
+\textbf{Problems:} Still has two zeros, arithmetic requires end-around carry.
 
 \section{Two's Complement}
 
-\begin{definition}
 Two's complement is the standard representation for signed integers in modern computers.
-\end{definition}
 
 \subsection{Definition}
 
-\begin{definition}
 For an $n$-bit number:
 \begin{itemize}
     \item If the leftmost bit is 0, the number is positive (same as unsigned)
@@ -289,741 +219,628 @@ For an $n$-bit number:
 \end{itemize}
 
 An $n$-bit two's complement number can represent values from $-2^{n-1}$ to $2^{n-1} - 1$.
-\end{definition}
 
 \subsection{Converting to Two's Complement}
 
-\begin{theorem}
 To represent $-x$ in two's complement:
 \begin{enumerate}
     \item Write the binary representation of $x$
     \item Flip all bits (one's complement)
     \item Add 1
 \end{enumerate}
-\end{theorem}
 
-\begin{example}
-Find $-5$ in 8-bit two's complement:
+\textbf{Example:} Find $-5$ in 8-bit two's complement:
 \begin{align*}
-5 &= (00000101)_2 \\
-\text{Flip bits: } &= (11111010)_2 \\
-\text{Add 1: } &= (11111011)_2
+    5 &= (00000101)_2 \\
+    \text{Flip bits: } &= (11111010)_2 \\
+    \text{Add 1: } &= (11111011)_2
 \end{align*}
 
 Therefore, $-5 = (11111011)_2$ in 8-bit two's complement.
-\end{example}
 
 \subsection{Converting From Two's Complement}
 
-\begin{theorem}
 If the leftmost bit is 1 (negative number), apply the same process: flip all bits and add 1.
-\end{theorem}
 
-\begin{example}
-What is $(11111011)_2$ in decimal?
+\textbf{Example:} What is $(11111011)_2$ in decimal?
 \begin{align*}
-\text{Flip bits: } &= (00000100)_2 \\
-\text{Add 1: } &= (00000101)_2 = 5 \\
-\text{Since original was negative: } &= -5
+    \text{Flip bits: } &= (00000100)_2 \\
+    \text{Add 1: } &= (00000101)_2 = 5 \\
+    \text{Since original was negative: } &= -5
 \end{align*}
-\end{example}
 
 \subsection{Properties of Two's Complement}
 
-\begin{theorem}
-Two's complement has the following properties:
 \begin{itemize}
-    \item Only one representation of zero: $(00\ldots0)_2$
+    \item Only one representation of zero: $(00...0)_2$
     \item Range for $n$ bits: $-2^{n-1}$ to $2^{n-1} - 1$
     \item The negative of a number equals its two's complement
     \item The leftmost bit has weight $-2^{n-1}$
 \end{itemize}
-\end{theorem}
 
 \section{Arithmetic in Two's Complement}
 
 \subsection{Addition}
 
-\begin{theorem}
 Add numbers normally using binary addition. Discard any carry out of the leftmost bit.
-\end{theorem}
 
-\begin{example}
-$5 + (-3) = 2$ in 8-bit two's complement:
+\textbf{Example:} $5 + (-3) = 2$ in 8-bit two's complement:
 \begin{align*}
-00000101 \text{ (5)} \\
-+ \, 11111101 \text{ (-3)} \\
-\hline
-1\,00000010 \text{ (discard carry, result = 2)}
+    00000101 \text{ (5)} \\
+    + \, 11111101 \text{ (-3)} \\
+    \hline
+    1\,00000010 \text{ (discard carry, result = 2)}
 \end{align*}
-\end{example}
 
 \subsection{Subtraction}
 
-\begin{theorem}
 To compute $a - b$, add $a$ and the two's complement of $b$: $a + (-b)$.
-\end{theorem}
 
-\begin{example}
-$7 - 5 = 7 + (-5)$:
+\textbf{Example:} $7 - 5 = 7 + (-5)$:
 \begin{align*}
-00000111 \text{ (7)} \\
-+ \, 11111011 \text{ (-5)} \\
-\hline
-1\,00000010 \text{ (result = 2)}
+    00000111 \text{ (7)} \\
+    + \, 11111011 \text{ (-5)} \\
+    \hline
+    1\,00000010 \text{ (result = 2)}
 \end{align*}
-\end{example}
 
 \subsection{Overflow Detection}
 
-\begin{definition}
 Overflow occurs when the result exceeds the representable range.
-\end{definition}
 
-\begin{theorem}[Overflow Conditions]
+\textbf{Overflow conditions:}
 \begin{itemize}
     \item Adding two positive numbers yields a negative result
     \item Adding two negative numbers yields a positive result
-    \item Equivalently: carry into the sign bit $\neq$ carry out of the sign bit
+    \item Equivalent: carry into the sign bit $\neq$ carry out of the sign bit
 \end{itemize}
-\end{theorem}
 
-\begin{example}
-$127 + 1$ in 8-bit (overflow):
+\textbf{Example:} $127 + 1$ in 8-bit (overflow):
 \begin{align*}
-01111111 \text{ (127)} \\
-+ \, 00000001 \text{ (1)} \\
-\hline
-10000000 \text{ (-128, overflow!)}
+    01111111 \text{ (127)} \\
+    + \, 00000001 \text{ (1)} \\
+    \hline
+    10000000 \text{ (-128, overflow!)}
 \end{align*}
-\end{example}
 
 \subsection{Sign Extension}
 
-\begin{theorem}
 To represent an $n$-bit two's complement number with more bits, copy the sign bit into all new leftmost positions.
-\end{theorem}
 
-\begin{example}
-Extend $(-5)$ from 8-bit to 16-bit:
+\textbf{Example:} Extend $(-5)$ from 8-bit to 16-bit:
 \begin{align*}
-\text{8-bit: } &11111011 \\
-\text{16-bit: } &1111111111111011
+    \text{8-bit: } &11111011 \\
+    \text{16-bit: } &1111111111111011
 \end{align*}
-\end{example}
 
 \chapter{Sets}
 
 \section{What is a Set?}
 
-\begin{definition}
-A set is an unordered collection of unique items.
-\end{definition}
+A set is simply an unordered collection of unique items.
 
 \section{Default Sets}
 
-\begin{definition}[Universal Set]
-The universal set $\universal$ contains every element in our domain (must be defined for each problem/set of problems).
-\end{definition}
+\subsection{$\universal$: The Universal Set}
+Contains every element in our domain (must be defined for each problem/set of problems).
 
-\begin{definition}[Empty Set]
-The empty set $\varnothing = \makeset{}$ has no elements.
-\end{definition}
+\subsection{$\varnothing$: The Empty Set} 
+\{\}; Has no elements.
 
 \section{Set Operations}
 
-\subsection{Equality}
+\subsection{=: Equality}
 
-\begin{definition}
 Two sets are equal if all of their elements are the same.
-\end{definition}
 
-\begin{theorem}
 \begin{equation}
-(A = B) \iff (\forall x (x \in A \iff x \in B))
+    (A = B) \iff (\forall x (x \in A \iff x \in B))
 \end{equation}
-\end{theorem}
 
-\subsection{Cardinality}
+\subsection{$\card{S}$: Cardinality}
 
-\begin{definition}
-The cardinality of set $S$ (denoted $\card{S}$) is the number of elements in set $S$.
-\end{definition}
+The cardinality of set $S$ ($\vert S \vert$) is the number of elements in set $S$.
 
-\begin{example}
 \begin{equation}
-\card{\makeset{1, 2, 3}} = 3
+    \card{\makeset{1, 2, 3}} = 3
 \end{equation}
-\end{example}
 
-\subsection{Complement}
+\subsection{$\overline{S}$: Complement}
 
-\begin{definition}
-The complement of a set $S$ (denoted $\overline{S}$) is the set of every element (of the universal set) that is not in $S$.
-\end{definition}
+The complement of a set $S$ ($\overline{S}$) is the set of every element (of the universal set) that is not in $S$.
 
-\begin{example}
-If $\universal = \makeset{1, 2, 3, 4, 5}$ and $S = \makeset{1, 4}$, then $\overline{S} = \makeset{2, 3, 5}$.
-\end{example}
+For example, if $\universal = \makeset{1, 2, 3, 4, 5}$ and $S = \makeset{1, 4}$, $\overline{S} = \makeset{2, 3, 5}$.
 
-\begin{theorem}
 \begin{equation}
-\card{\overline{S}} = \card{\universal} - \card{S}
+    \vert \overline{S} \vert = \vert \universal \vert - \vert S \vert
 \end{equation}
-\end{theorem}
 
-\subsection{Intersection}
+\subsection{$\cap$: Intersection}
 
-\begin{definition}
-The intersection of sets $A$ and $B$ (denoted $A \cap B$) contains every element in both sets.
-\end{definition}
+The intersection of sets $A$ and $B$ ($A \cap B$) contains every element in both sets.
 
-\begin{theorem}
 \begin{equation}
-A \cap B = \{x \mid x \in A \land x \in B\}
+    A \cap B = \{x | x \in A \land x \in B\} 
 \end{equation}
-\end{theorem}
 
-\subsection{Union}
+\subsection{$\cup$: Union}
 
-\begin{definition}
-The union of sets $A$ and $B$ (denoted $A \cup B$) contains every element in either set (with no repeats).
-\end{definition}
+The union of sets $A$ and $B$ ($A \cup B$) contains every element in either set (with no repeats).
 
-\begin{theorem}
 \begin{align}
-A \cup B &= \{x \mid x \in A \lor x \in B\} \\
-\card{A \cup B} &= \card{A} + \card{B} - \card{A \cap B}
+    A \cup B &= \{x \vert x \in A \lor x \in B\} \\
+    \card{A \cup B} &= \card{A} + \card{B} + \card{A \cap B}
 \end{align}
-\end{theorem}
 
-\subsection{Subset}
+\subsection{$\subseteq$: Subset}
 
-\begin{definition}
-If $A$ is a subset of $B$ (denoted $A \subseteq B$), all elements of $A$ are also elements of $B$.
-\end{definition}
+If $A$ is a subset of $B$ ($A \subseteq B$), all elements of $A$ are also elements of $B$.
 
-\begin{theorem}
 \begin{equation}
-A \subseteq B \iff \forall x ((x \in A) \implies (x \in B))
+    A \subseteq B \iff \forall x (x \in A) \implies (x \in B)
 \end{equation}
-\end{theorem}
 
-\begin{proposition}
 Any set is a subset of itself.
+
 \begin{equation}
-A \subseteq A
+    A \subseteq A
 \end{equation}
-\end{proposition}
 
-\begin{theorem}
-Set equality can be defined using subset:
+The subset definition can also be used to define set equality.
+
 \begin{equation}
-A = B \iff (A \subseteq B) \land (B \subseteq A)
+    A = B \iff (A \subseteq B) \land (B \subseteq A)
 \end{equation}
-\end{theorem}
 
-\begin{definition}[Proper Subset]
-If $A$ is a proper (or strict) subset of $B$ (denoted $A \subset B$), all elements of $A$ are in $B$, but $A \neq B$.
-\end{definition}
+If $A$ is a \emph{proper} (also called strict) subset of $B$ ($A \subset B)$,
+all elements of $A$ are in $B$, but $A$ is not $B$.
 
-\begin{theorem}
 \begin{equation}
-A \subset B \iff (A \subseteq B) \land (A \neq B)
+    A \subset B \iff (A \subseteq B) \land (A  \not= B)
 \end{equation}
-\end{theorem}
 
-\begin{definition}
-If $A$ is a subset of $B$, then $B$ is a superset of $A$. If $A$ is a proper subset of $B$, then $B$ is a proper superset of $A$.
-\end{definition}
+If $A$ is a subset of $B$, $B$ is a superset of $A$; if $A$ is a proper subset of $B$, $B$ is a proper superset of $A$.
 
-\begin{theorem}
 \begin{align}
-A \subseteq B &\iff B \supseteq A \\
-A \subset B &\iff B \supset A
+    A \subseteq B &\iff B \supseteq A \\
+    A \subset B &\iff B \supset A
 \end{align}
-\end{theorem}
 
-\subsection{Difference}
+\subsection{$-$: Difference}
 
-\begin{definition}
-The difference of sets $A$ and $B$ (denoted $A - B$) is every element of $A$ that is not in $B$.
-\end{definition}
+The difference of sets $A$ and $B$ ($A$ - $B$) is every element of $A$ that is not in $B$.
 
-\begin{theorem}
 \begin{align}
-A - B &= A \cap \overline{B} \\
-\card{A - B} &= \card{A \cap \overline{B}}
+    A - B &= A \cap \overline{B} \\
+    \card{A - B} &= \card{A \cap \overline{B}}
 \end{align}
-\end{theorem}
 
-\begin{theorem}
-Set difference can be used to define a set's absolute complement:
+Set difference can also be used to define a set's absolute complement (the previously defined complement):
+
 \begin{equation}
-\overline{S} = \universal - S
+    \overline{S} = \universal - S
 \end{equation}
-\end{theorem}
 
-\begin{definition}
-The difference of sets $A$ and $B$ (denoted $A - B$) is sometimes called the relative complement of $B$ with respect to $A$ (denoted $B \backslash A$). The absolute complement of a set $S$ (denoted $\overline{S}$) is its relative complement with respect to the universal set ($\universal \backslash S$).
-\end{definition}
+The difference of sets $A$ and $B$ ($A - B$) is sometimes called the relative complement of B with respect to A ($B \backslash A$). The absolute complement of a set $S$  ($\overline{S}) $is simply its relative complement with respect to the universal set ($\universal \backslash {S}$).
 
-\begin{theorem}
 \begin{equation}
-A - B = A \backslash B
+    A - B = A \backslash B
 \end{equation}
-\end{theorem}
 
-\begin{definition}[Symmetric Difference]
-The symmetric difference of sets $A$ and $B$ (denoted $A \Delta B$) is every element of one set that is not in the other set.
-\end{definition}
+The \emph{symmetric} difference of sets $A$ and $B$ ($A \Delta B)$ is every element of one set that is not in the other set.
 
-\begin{theorem}
 \begin{equation}
-A \Delta B = (A - B) \cup (B - A)
+    A \Delta B = (A - B) \cup (B - A)
 \end{equation}
-\end{theorem}
 
 \section{Set Functions}
 
 \subsection{Powerset}
+\begin{itemize}
+    \item input: set
+    \item output: set of sets
+\end{itemize}
 
-\begin{definition}
-The powerset of $S$ is the set of all subsets of $S$.
-\end{definition}
-
-\begin{theorem}
 \begin{equation}
-\powerset(S) = \{A \mid A \subseteq S\}
+    \powerset(S) = \{A \vert A \subseteq S\}
 \end{equation}
-\end{theorem}
 
 \subsection{Cartesian Product}
+\begin{itemize}
+    \item input: two sets
+    \item output: set of ordered pairs
+\end{itemize}
 
-\begin{definition}
-The Cartesian product of sets $A$ and $B$ is the set of all ordered pairs where the first element is from $A$ and the second is from $B$.
-\end{definition}
-
-\begin{theorem}
 \begin{equation}
-A \times B = \{(a, b) \mid a \in A \land b \in B\}
+    A \times B = \{(a, b) | a \in A \wedge b \in B \}
 \end{equation}
-\end{theorem}
 
-\begin{definition}
-If $A \cap B = \varnothing$, sets $A$ and $B$ are \textbf{disjoint}.
-\end{definition}
+If $A \cap B = \varnothing$, $A$ and $B$ are \textbf{disjoint}.
 
 \chapter{Counting}
 
 \begin{table}[H]
     \centering
     \begin{tabular}{ccc}
-         &  No Repetition & Yes Repetition \\
-         Order Matters & Permutation $\perm{n}{k}$ & $n^k$ \\
-         Order Does Not Matter & Combination $\comb{n}{k}$ & Stars \& Bars \\
+         &  No Repetition& Yes Repetition\\
+         Order Matters &  Permutation $\perm{n}{k}$& $n^k$\\
+         Order Does Not Matter &  Combination $\comb{n}{k}$ & Stars \& Bars\\
     \end{tabular}
     \caption{Which Formula To Use}
-    \label{tab:counting}
+    \label{tab:placeholder}
 \end{table}
 
 \section{Counting We've Seen}
 
-\begin{example}
-Let $A = \makeset{1, 2, 3}$ and $B = \makeset{3, 4}$. Then:
-\begin{equation}
-A \times B = \makeset{(1, 3), (1, 4), (2, 3), (2, 4), (3, 3), (3, 4)}
-\end{equation}
-\end{example}
+\begin{align*}
+    \text{let } A &= \makeset{1, 2, 3} \text{ and } B = \makeset{3, 4}
+    \\ &\therefore \\
+    A \times B &= \makeset{(1, 3), (1, 4), (2, 3), (2, 4), (3, 3), (3, 4)}
+\end{align*}
 
-\begin{theorem}
-\begin{equation}
-\card{A \times B} = \card{A} \cdot \card{B}
-\end{equation}
-\end{theorem}
 
-\begin{theorem}
 \begin{equation}
-\card{\powerset(S)} = 2^{\card{S}}
+    \card{A \times B} = \card{A} \cdot \card{B}
 \end{equation}
-\end{theorem}
+
+\begin{equation}
+    \card{\powerset(S)} = 2^{\card{S}}
+\end{equation}
 
 \section{Product Rule: Order Matters}
 
 \subsection{Two Separate Tasks}
+\begin{itemize}
+    \item one task in $n$ ways
+    \item one task in $m$ ways
+\end{itemize}
 
-\begin{theorem}[Product Rule]
-If one task can be done in $n$ ways and another task can be done in $m$ ways, there are $n \cdot m$ ways to do both tasks.
-\end{theorem}
+\begin{equation}
+    \text{There are } n \cdot m \text{ ways to do task 1 \textbf{and} task 2.}
+\end{equation}
 
-\subsection{Repetition and Permutations}
-
-\begin{remark}
+\subsection{One Task Multiple Ways}
 When repetition is okay, we have $k$ tasks and $n$ choices per task; there are $n^k$ ways to do it.
 
-When repetition is not okay, we have $k$ tasks and $n$ choices for the first, $n-1$ for the second, etc. We use permutations for this.
-\end{remark}
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use permutations: $\perm{n}{k}$.
 
-\begin{definition}
-A permutation $\perm{n}{k}$ is an ordering of $k$ objects chosen from $n$ objects.
-\end{definition}
-
-\begin{theorem}
-\begin{equation}
-\perm{n}{k} = \frac{n!}{(n-k)!} \quad \text{and} \quad \perm{n}{n} = n!
-\end{equation}
-\end{theorem}
+\begin{align}
+    \text{$\perm{n}{k}$} &= \text{$k$ permutations of $n$ objects is an ordering of $k$ of the objects.} \\
+    \perm{n}{k} &= \frac{n!}{(n-k)!} \text{; } \perm{n}{n} = n!
+\end{align}
 
 \section{Sum Rule: Order Does Not Matter}
 
 \subsection{Two Tasks}
+\begin{itemize}
+    \item one task in $n$ ways
+    \item one task in $m$ ways
+\end{itemize}
 
-\begin{theorem}[Sum Rule]
-If one task can be done in $n$ ways and another task can be done in $m$ ways (mutually exclusive), there are $n + m$ ways to do either task.
-\end{theorem}
-
-\subsection{Combinations}
-
-\begin{definition}
-A combination $\comb{n}{k}$ is a selection of $k$ objects from $n$ objects where order does not matter.
-\end{definition}
-
-\begin{theorem}
 \begin{equation}
-\comb{n}{k} = \frac{n!}{k!(n-k)!} \quad \text{and} \quad \comb{n}{n} = 1
+    \text{There are } n + m \text{ ways to do task 1 \textbf{or} task 2.}
 \end{equation}
-\end{theorem}
+
+\subsection{One Task Multiple Ways}
+When repetition is okay, see the Stars and Bars subsection!
+
+When repetition is not okay, we have $k$ tasks and $n$ choices for the first task, $n-1$ for the second task, etc. For this, we use combinations: $\comb{n}{k}$.
+
+\begin{align}
+    \text{$\comb{n}{k}$} &= \text{$k$ combinations of $n$ objects is a set of $k$ of the objects.} \\
+    \comb{n}{k} &= \frac{n!}{k!(n-k)!} \text{; } \comb{n}{n} = 1
+\end{align}
 
 \subsection{Stars and Bars}
 
-\begin{proposition}
-Stars and Bars applies when:
 \begin{enumerate}
     \item Order doesn't matter
     \item Repetition is allowed
 \end{enumerate}
-\end{proposition}
 
-\begin{theorem}[Stars and Bars]
-The number of ways to put $n$ indistinguishable objects into $k$ distinguishable bins is:
-\begin{equation}
-\comb{n + k - 1}{k - 1}
-\end{equation}
-\end{theorem}
+How many ways are there to put $n$ indistinguishable balls into $n$ distinguishable bins?
+
+This is secretly a combination problem! 
+
+\begin{align}
+    n_{\text{combination}} &= n_{\text{stars and bars}} + k_{\text{stars and bars}} + 1 \\
+    k_{\text{combination}} &= k_{\text{stars and bars}} -1
+\end{align}
+
+This means that the answer to our initial question is simply
+$\comb{n + k + 1}{k - 1}$
 
 \section{The Pigeonhole Principle}
 
-\begin{theorem}[Pigeonhole Principle]
-If there are $n$ objects and $k < n$ boxes, there must be at least one box with $\ceil*{\frac{n}{k}}$ objects in it, where $\ceil{x}$ is the ceiling function (the smallest integer greater than or equal to $x$).
-\end{theorem}
+The bridge between Counting and Probability!
+We are putting objects in boxes. 
 
-\begin{example}
-If there are 200 people in a room, at least 17 of them share a birth month, since $\ceil{\frac{200}{12}} = 17$.
-\end{example}
+This principle starts with the idea that you have a bunch of pigeons, and a bunch of pigeonholes, and every pigeon must go into a pigeonhole. If there are more pigeons than pigeonholes, then you are guaranteed  that at least one pigeonhole contains at least 2 pigeons. This is the closest I could get to drawing pigeons; there are 6 pigeonholes in the drawings below and 7 pigeons. 
+
+If there are 200 people in a room, it is guaranteed that at least 17 of them share a birth month. It is not guaranteed (it is likely) that even one person was born in October (or any other month, for that matter). 
+
+In more general terms, the Pigeonhole Principle states that, if you have $n$ objects and $k < n$ boxes, there must be at least one box with $\ceil{\frac{n}{k}}$ \footnote{$\ceil{x}$ aka ceil($x$) is the smallest integer that is greater than $x$. Eg $\ceil{2.5} = \ceil{2.9} = \ceil{2.00001} = 3$.} objects in it.
+
+\begin{equation}
+    \text{Given $n$ objects and $k$ boxes, at least one box has } \ceil*{\frac{n}{k}} \text{ objects in it.}
+\end{equation}
+
 
 \chapter{Probability}
 
 \section{Terms}
 
-\begin{definition}[Experiment]
+\subsubsection{Experiment}
+
 An infinitely repeatable procedure with a well-defined set of outcomes.
-\end{definition}
 
-\begin{definition}[Sample Space]
-The sample space $S$ is the set of all possible outcomes of an experiment.
+\subsubsection{Sample Space $S$}
+
+All possible outcomes of an experiment.
+
 \begin{equation}
-S = \makeset{s_1, s_2, s_3, \ldots, s_n}
+    S = \makeset{s_1, s_2, s_3, ... s_n}
 \end{equation}
-\end{definition}
 
-\begin{definition}[Event Space]
-An event space $E$ is a subset of outcomes we care about.
+\subsubsection{Event Space $E$}
+
+Subset of outcomes we care about.
+
 \begin{equation}
-E \subseteq S
+    E \subseteq S
 \end{equation}
-\end{definition}
 
-\begin{definition}[Probability of Event]
-The probability of event $E$ is:
+\subsubsection{Probability of Event $E$}
+
+How likely event $E$ is to occur.
+
 \begin{align}
-\prob(E) &= \frac{\card{E}}{\card{S}} \\
-\prob(\neg E) &= 1 - \prob(E)
+    \prob(E) &= \frac{\card{E}}{\card{S}} \\
+    \prob(\lnot{E}) &= \frac{\card{\overline{E}}}{\card{S}} = 1 - \prob(E)
 \end{align}
-\end{definition}
 
-\begin{remark}
-The sample space $S$ is the universal set of events. Although $E$ is treated as a set, the logical not ($\neg$) symbol is used to denote an event \emph{not} occurring.
-\end{remark}
+The RHS of equation 5.4 works because the sample space $S$ is the universal set of events. Note that despite treating $E$ like a set, the logical not ($\lnot$) symbol is used to mark an event \emph{not} occurring.
 
-\begin{definition}[Expected Value]
-An expected value is a numeric value associated with the outcome of an experiment. This is necessary because we can't take the average of non-numeric outcomes like 'pink sock' or 'queen of hearts'.
-\end{definition}
+\subsubsection{Expected Value $x$}
+
+A numeric value associated with the outcome of the experiment. Used because we can't take the average of 'pink sock' or 'queen of hearts'.
 
 \section{Probability of Multiple Events}
 
-\begin{theorem}
+A generalization of the product rule and sum rule.
+
 Given events $E$ and $F$:
+
 \begin{equation}
-\prob(E \cup F) = \prob(E) + \prob(F) - \prob(E \cap F)
+    \prob(E \cup F) = \prob(E) + \prob(F) + \prob(E \cap F)
 \end{equation}
-\end{theorem}
 
 \subsection{Independent Events}
 
-\begin{definition}
 Two events are independent if the outcome of one doesn't affect the outcome of the other.
-\end{definition}
 
-\begin{theorem}
 \begin{equation}
-\prob(E \cap F) = \prob(E) \cdot \prob(F) \iff \text{$E$ and $F$ are independent}
+    \prob(E \cap F) = \prob(E) \cdot \prob(F) \iff \text{$E$ and $F$ are independent}
 \end{equation}
-\end{theorem}
 
-\begin{remark}
-This formula can also be used to determine whether two events are independent.
-\end{remark}
+In addition to determining the probability of two events that we \emph{know} are independent, we can also use that formula to determine \emph{if} two events are independent.
 
 \subsection{Conditional Probability}
 
-\begin{definition}
-The conditional probability of event $E$ given that event $F$ has already happened is denoted $\prob(E \mid F)$.
-\end{definition}
+The likelihood of an event $E$ occurring,  given that another event $F$ has already happened. The probability of $E$ given $F$ is written as $\prob(E | F)$.
 
-\begin{theorem}
 \begin{equation}
-\prob(E \mid F) = \frac{\prob(E \cap F)}{\prob(F)}
+    \prob(E | F) = \frac{\prob(E \cap F)}{\prob(F)}
 \end{equation}
-\end{theorem}
 
-\begin{theorem}
+Note that when calculating $\prob(E \cap F)$, $E$ and $F$ are \emph{not} independent; formula 5.6 does not apply. However, we can arrange that equation to find that
+
 \begin{equation}
-\prob(E \cap F) = \prob(E \mid F) \cdot \prob(F)
+    \prob(E \cap F) = \prob(E | F) \cdot \prob(F)
 \end{equation}
-\end{theorem}
-
-\begin{remark}
-When calculating $\prob(E \cap F)$, note that $E$ and $F$ are \emph{not} independent, so the formula from Section 5.2 does not apply.
-\end{remark}
 
 \subsection{Bayes' Theorem}
 
-\begin{theorem}[Bayes' Theorem]
+Bayes' theorem states
+
 \begin{equation}
-\prob(E \mid F) = \frac{\prob(F \mid E) \cdot \prob(E)}{\prob(F)}
+    \prob(E | F) = \frac{\prob(F | E) \cdot \prob(E)}{\prob(F)}
 \end{equation}
-\end{theorem}
 
 \subsection{General Insights}
 
-\begin{theorem}[Law of Total Probability]
-Given that $\prob(F) = \prob(F \cap E) + \prob(F \cap \neg E)$ and Theorem 5.8:
+Given that $\prob(F) = \prob(F \cap E) + \prob(F \cap \lnot{E})$ and what was discovered in equation 5.8, we can find that
+
 \begin{equation}
-\prob(F) = \prob(F \mid E) \cdot \prob(E) + \prob(F \mid \neg E) \cdot \prob(\neg E)
+    \prob(F) = \prob(F | E) \cdot \prob(E) + \prob(F | \lnot{E}) \cdot \prob(\lnot{E})
 \end{equation}
-\end{theorem}
 
 \section{Expectations}
 
 \subsection{Expected Values}
 
-\begin{definition}
-The expected value of a random variable is:
+After running an experiment over and over...
+
+\subsubsection{On average, what happens?}
+
 \begin{equation}
-E[X] = \sum_{s_i \in S} \prob(s_i) \cdot X_i
+    E[x] = \sum_{s_i \in S}{\prob(s_i) \cdot x_i}
 \end{equation}
 
-This is essentially a weighted average of each outcome times the value of that outcome.
-\end{definition}
+It is essentially a weighted average of each outcome times the value of that outcome.
 
 \subsection{Linearity of Expectations}
 
-\begin{theorem}[Linearity of Expectation]
-\begin{equation}
-E(X_1 + X_2 + \cdots + X_n) = E[X_1] + E[X_2] + \cdots + E[X_n]
-\end{equation}
-\end{theorem}
+What if we wanted to know the number of heads if we flip a coin 100 times?
 
-\begin{example}
-To find the expected number of heads in 100 coin flips, use linearity of expectation: each flip has expected value $\frac{1}{2}$, so 100 flips have expected value $100 \cdot \frac{1}{2} = 50$.
-\end{example}
+\begin{equation}
+    E(x_1 + x_2 + \cdots + x_n) = E[x_1] + E[x_2] + \cdots + E[x_n]
+\end{equation}
 
 \chapter{Sequences and Series}
 
-\begin{definition}
-A sequence is an ordered list of potentially an infinite number of numbers.
-\end{definition}
+A sequence is a discrete structure used to discover and characterize patterns (such as earthquakes, comets, and the stock market).
 
-\begin{definition}
-A sequence is defined as $\{a_n\} = a_1, a_2, a_3, \ldots, a_n$. An infinite sequence is also defined as a mapping from $\mathbb{Z}^+$ to $\{a_n\}$.
-\end{definition}
+\begin{quote}
+    A sequence is an ordered list of potentially an infinite number of numbers.
+\end{quote}
+
+\section{Definition}
+
+A sequence is defined like $\makeset{a_n} = a_1, a_2, a_3, \cdots, a_n$. If the sequence is infinite, there is no $n$th term. \medskip
+
+An infinite sequence is also defined as a mapping from $\mathbb{Z}^+$ to $\makeset{a_n}$.
 
 \subsection{Notation}
-
-\begin{remark}
 \begin{itemize}
-    \item $a_n$: denotes either the whole sequence or the final term
-    \item $a_k$: denotes any one arbitrary term
+    \item $a_n$: the whole sequence or the final term
+    \item $a_k$: any one arbitrary term
 \end{itemize}
-\end{remark}
 
-\section{Forms}
+\subsection{Forms}
 
-\subsection{Recursive Form}
+\subsubsection{Recursive Form}
 
-\begin{definition}[Recursive Sequence]
-A sequence defined recursively uses the previous term to define the next term.
-\end{definition}
+A sequence can be defined recursively, using the previous term. \medskip
 
-\begin{theorem}[Arithmetic Sequence - Recursive]
+An arithmetic sequence can be defined recursively like this:
+
 \begin{equation}
-a_k = a_{k-1} + d
+    a_k = a_{k-1} + \beta
 \end{equation}
-where $d$ is the common difference.
-\end{theorem}
 
-\begin{theorem}[Geometric Sequence - Recursive]
+A geometric sequence can be defined recursively like this:
+
 \begin{equation}
-a_k = r \cdot a_{k-1}
+    a_k = \beta \cdot a_{k-1}
 \end{equation}
-where $r$ is the common ratio.
-\end{theorem}
 
-\subsection{Closed Form}
+\subsubsection{Closed Form}
 
-\begin{definition}[Closed Form Sequence]
-A closed form sequence does not depend on any other term.
-\end{definition}
+A closed form sequence does not depend on any other term. \medskip
 
-\begin{theorem}[Arithmetic Sequence - Closed Form]
+An arithmetic sequence can be defined explicitly like this:
+
 \begin{equation}
-a_k = a_1 + (k-1)d
+    a_k = \beta \cdot k
 \end{equation}
-\end{theorem}
 
-\begin{theorem}[Geometric Sequence - Closed Form]
+A geometric sequence can be defined recursively like this:
+
 \begin{equation}
-a_k = a_1 \cdot r^{k-1}
+    a_k = \beta^k
 \end{equation}
-\end{theorem}
 
-\begin{example}
-Consider the sequence $\{a_n\}$ where $a_k = \frac{k}{k+1}$ for all $n \in \mathbb{Z}^+$.
+Of course, other types of sequences exist, such as:
 
-Then $a_1 = \frac{1}{2}$, $a_2 = \frac{2}{3}$, and $a_{512} = \frac{512}{513}$.
-\end{example}
+\begin{equation*}
+    {a_n} \forall n \in \mathbb{Z}^+ a_k = \frac{k}{k+1}
+\end{equation*}
 
-\begin{example}
-Consider the sequence $\{b_n\}$ where $b_k = (-1)^k$ for all $n \in \mathbb{Z}^+$.
+With this sequence, $a_1 = \frac{1}{2}$, $a_2 = \frac{2}{3}$, and $a_{512} = \frac{512}{513}$. \medskip
 
-Then $b_1 = -1$, $b_2 = 1$, and $b_{124} = 1$.
-\end{example}
+And
+
+\begin{equation*}
+    {b_n} \forall n \in \mathbb{Z}^+ b_k = (-1)^k
+\end{equation*}
+
+With this sequence, $b_1 = -1$, $b_2 = 1$, and $b_{124} = 1$.
 
 \section{Specific Series}
 
 \subsection{Arithmetic Series}
 
-\begin{theorem}[Arithmetic Series]
-For any arithmetic series with first term $a_1$ and common difference $d$, the sum of the first $n$ terms is:
+For any arithmetic series $a_k = a + (k-1)d$, the sum of the first $n$ terms is
+
 \begin{equation}
-\sum_{k=1}^{n} a_k = \frac{n(a_1 + a_n)}{2}
+    \sum_{k=1}^{n}{a_k} = \frac{n(a_1 \cdot a_n)}{2}
 \end{equation}
-\end{theorem}
 
 \subsection{Geometric Series}
 
-\begin{theorem}[Geometric Series]
-For any geometric series with first term $a_1$ and common ratio $r$, the sum of the first $n$ terms is:
+For any geometric series $a_k = a \cdotp r^{k-1}$, the sum of the first $n$ terms is
+
 \begin{equation}
-\sum_{k=1}^{n} a_k = \frac{a_1(r^n - 1)}{r - 1}
+    \sum_{k=1}^{n}{a_k} = \frac{a_1 \cdotp r^n - a_1}{r-1}
 \end{equation}
-\end{theorem}
 
 \section{Summation Rules}
 
-\begin{theorem}[Constant Summation]
-\begin{equation}
-\sum_{i=1}^{n} k = nk
-\end{equation}
-where $k \in \mathbb{R}$.
-\end{theorem}
+\subsubsection{Constant Summation}
 
-\begin{theorem}[Constant Multiplication]
 \begin{equation}
-\sum_{i=1}^{n} k \cdot a_i = k \sum_{i=1}^{n} a_i
+    \sum_{i=1}^{n}{k} = nk
 \end{equation}
+
+where $k \in \mathbb{R}$
+
+\subsubsection{Constant Multiplication}
+
+\begin{equation}
+    \sum_{i=1}^{n} a_i = k \sum_{i=1}^{n} a_i
+\end{equation}
+
 where $k \in \mathbb{R}$ and $a_i$ is the $i$th term of a sequence $\{a_n\}$.
-\end{theorem}
 
-\begin{theorem}[Summation Bounds]
+\subsubsection{Summation Bounds}
+
 \begin{equation}
-\sum_{i=a}^{n} s_i = \sum_{i=1}^{n} s_i - \sum_{i=1}^{a-1} s_i
+    \sum_{i=a}^{n} s_i = \sum_{i=1}^{n} s_i + \sum_{i=1}^{a-1} s_i
 \end{equation}
+
 where $a \in \mathbb{N}$ and $s_i$ is the $i$th term of a sequence $\{s_n\}$.
-\end{theorem}
 
-\begin{theorem}[Summation Addition]
+\subsubsection{Summation Addition}
+
 \begin{equation}
-\sum_{i=1}^{n} (a_i + b_i) = \sum_{i=1}^{n} a_i + \sum_{i=1}^{n} b_i
+    \sum_{i=1}^{n} a_i + b_i = \sum_{i=1}^{n} a_i + \sum_{i=1}^{n} b_i
 \end{equation}
-where $a_i$ and $b_i$ are the $i$th terms of sequences $\{a_n\}$ and $\{b_n\}$ respectively.
-\end{theorem}
+
+where $a_i$ and $b_i$ are the $i$th term of sequences $\{a_n\}$ and $\{b_n\}$ respectively.
 
 \chapter{Mathematical Induction}
 
-\begin{definition}
-Proof by induction is a technique used in mathematics and computer science to prove that a predicate $P(n)$ holds for all positive integers $n$.
-\end{definition}
+Proof by induction is a technique used in mathematics and computer science. Given some predicate $P(x)$, a proof by induction is a shortcut to prove $\forall n \in \mathbb{Z}^+$, $P(n)$ by proving that $P(k) \implies P(k+1)$.
 
 \section{Structure}
 
-A proof by induction has the following major components:
+A proof by induction has some major components:
 
 \subsection{Predicate and Logic Statement}
 
-\begin{definition}
-The first part is the predicate, which is usually an equation or statement that may or may not be true for any given value of its inputs.
-\end{definition}
+The first part is the predicate, which is usually an equation or statement that may or may not be true for any given value of its inputs. Some examples include:
 
-\begin{example}
 \begin{itemize}
-    \item $\displaystyle P(n): \sum_{i=1}^{n} i = \frac{n(n+1)}{2}$
-    \item $P(n): 6^n + 4$ is a multiple of 5
+    \item $\displaystyle P(x): \sum_{i=1}^{x} i = \frac{i(i+1)}{2}$
+    \item $P(x): 6^x + 4$ is a multiple of 5
 \end{itemize}
-\end{example}
 
-\begin{remark}
 We then create a logic statement so that we can actually prove it:
+
 \begin{equation}
-\forall n \in \mathbb{Z}^+, P(n)
+    \forall n \in \mathbb{Z}^+, P(n)
 \end{equation}
-\end{remark}
 
 \subsection{Inductive Hypothesis and Implication}
 
-\begin{definition}
-To prove the logic statement, we prove the implication $P(k) \implies P(k+1)$ and assume $P(k)$ is true. That assumption is called the inductive hypothesis.
-\end{definition}
+To prove that the logic statement is true, we prove the implication
+
+\begin{equation}
+    P(k) \implies P(k+1)
+\end{equation}
+
+and assume $P(k)$ is true. That assumption is called the inductive hypothesis.
 
 \subsection{Base Case}
 
-\begin{definition}
-The base case is a proof for the smallest value of $n$ that we want to prove. The inductive cases will follow it.
-\end{definition}
+The base case is a proof for the smallest value of $x$ that we want to prove. The inductive cases will follow it.
 
 \subsection{Inductive Step}
 
-\begin{definition}
-After assuming $P(k)$ is true and proving $P(n)$ for the smallest value of $n$, we use the inductive hypothesis to prove $P(k+1)$.
-\end{definition}
+Now that we assume $P(k)$ is true and we've proven $P(x)$ for the smallest value of $x$, we can use it to prove $P(k+1)$.
 
 \section{Example: Integer Summations}
-
-\begin{theorem}
-\begin{equation}
-\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
-\end{equation}
-\end{theorem}
 
 \begin{proof}
 We prove by mathematical induction that $\displaystyle \sum_{i=1}^{n} i = \frac{n(n+1)}{2}$ for all $n \in \mathbb{Z}^+$.
